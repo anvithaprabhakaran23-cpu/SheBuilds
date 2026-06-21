@@ -1,0 +1,159 @@
+{% extends 'Authority/Header.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card profile-card">
+        <div class="card-header">
+            <h2>Edit Profile</h2>
+        </div>
+
+        <form action="" method="post" class="profile-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Name</label>
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="txt_name" value="{{editdata.authority_name}}" placeholder="Enter Name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="text" name="txt_email" value="{{editdata.authority_email}}" placeholder="Enter Email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contact</label>
+                <div class="input-container">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" name="txt_num" value="{{editdata.authority_contact}}" placeholder="Enter Contact">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <div class="input-container">
+                    <i class="fas fa-home"></i>
+                    <input type="text" name="txt_address" value="{{editdata.authority_address}}" placeholder="Enter Address">
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check"></i> Update Profile
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Card Header */
+.card-header h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #042c5c;
+}
+
+/* Input Container */
+.input-container {
+    position: relative;
+}
+
+.input-container i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #42a5f5;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-container input:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 5px rgba(66,165,245,0.3);
+}
+
+/* Buttons */
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+
+{% endblock content %}

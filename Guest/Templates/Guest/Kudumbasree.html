@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0f172a;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #475569;
+        }
+
+        .form-control {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            background: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: #2563eb;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="title">
+                Kudumbasree Registration
+            </div>
+
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input required type="text" name="txt_name" class="form-control" 
+                         title="Name Allows Only Alphabets, Spaces and First Letter Must Be Capital" 
+                         pattern="^[A-Z]+[a-zA-Z ]*$" placeholder>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input required type="email" name="txt_email" class="form-control" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input required type="text" name="txt_num" class="form-control" 
+                         pattern="[7-9]{1}[0-9]{9}" title="10 digits starting with 7, 8, or 9" placeholder>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input required type="password" name="txt_pass" class="form-control" 
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                           title="Must contain at least one number, one uppercase, one lowercase, and 8+ characters">
+                    </div>
+
+                    <div class="form-group">
+                        <label>District</label>
+                        <select name="sel_district" id="sel_district" class="form-control">
+                            <option value="">--select--</option>
+                            {% for i in dis %}
+                            <option value="{{i.id}}">{{i.district_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Place</label>
+                        <select name="sel_place" id="sel_place" class="form-control">
+                            <option value="">--select--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Local Place</label>
+                        <select name="sel_localplace" id="sel_localplace" class="form-control">
+                            <option value="">--select--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Authority</label>
+                        <select name="sel_authority" id="sel_authority" class="form-control">
+                            <option value="">--select--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Authority Ward</label>
+                        <select name="sel_authward" id="sel_authward" class="form-control">
+                            <option value="">--select--</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Register
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+
+        var ur = "{% url 'Guest:ajaxplace' %}"
+
+        $.ajax({
+            url: ur,
+            data: { did: did },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+
+    $("#sel_place").change(function () {
+
+        var pid = $(this).val();
+
+        var ur = "{% url 'Authority:ajaxlocalplace' %}"
+
+        $.ajax({
+            url: ur,
+            data: { pid: pid },
+            success: function (data) {
+                $("#sel_localplace").html(data);
+            },
+        });
+
+    });
+
+    $("#sel_place").change(function () {
+
+        var pid = $(this).val();
+
+        var ur = "{% url 'Guest:ajaxauthority' %}"
+
+        $.ajax({
+            url: ur,
+            data: { pid: pid },
+            success: function (data) {
+                $("#sel_authority").html(data);
+            },
+        });
+
+    });
+
+    $("#sel_authority").change(function () {
+
+        var aid = $(this).val();
+
+        var ur = "{% url 'Guest:ajaxauthorityward' %}"
+
+        $.ajax({
+            url: ur,
+            data: { aid: aid },
+            success: function (data) {
+                $("#sel_authward").html(data);
+            },
+        });
+
+    });
+</script>

@@ -1,0 +1,137 @@
+{% extends 'ADS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card table-card">
+        <div class="card-header">
+            <h2>Kudumbasree List (Your Local Place)</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Local Place</th>
+                        <th>Ward</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k in kudumbasree_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ k.kudumbasree_name }}</td>
+                        <td>{{ k.kudumbasree_email }}</td>
+                        <td>{{ k.kudumbasree_contact }}</td>
+                        <td>{{ k.localplace.localplace_name }}</td>
+                        <td>Ward {{ k.authorityward.ward.ward_number }}</td>
+                        <td>
+                            {% if k.kudumbasree_status == 0 %}
+                                <span class="status pending">Pending</span>
+                            {% elif k.kudumbasree_status == 1 %}
+                                <span class="status approved">Approved</span>
+                            {% else %}
+                                <span class="status rejected">Rejected</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7">No Kudumbasree Found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Card Header */
+.card-header h2 {
+    margin: 0 0 20px;
+    color: #042c5c;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Table Styling */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.table tr:hover {
+    background-color: #f0f8ff;
+}
+
+/* Status Badges */
+.status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: #fff;
+}
+
+.status.pending {
+    background-color: #ffc107;
+}
+
+.status.approved {
+    background-color: #28a745;
+}
+
+.status.rejected {
+    background-color: #dc3545;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 600px) {
+    .table th, .table td {
+        padding: 8px 10px;
+    }
+}
+</style>
+
+{% endblock content %}

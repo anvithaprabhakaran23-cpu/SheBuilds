@@ -1,0 +1,183 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- Add Notification Card -->
+    <div class="card profile-card">
+        <h3>Add Notification</h3>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="txt_title" required>
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="txt_loc" required>
+            </div>
+
+            <div class="form-group">
+                <label>Details</label>
+                <input type="text" name="txt_details" required>
+            </div>
+
+            <div class="form-group">
+                <label>Upload File</label>
+                <input type="file" name="file_photo">
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Add Notification</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Notification List -->
+    <div class="card profile-card" style="margin-top: 30px;">
+        <h3>Notification List</h3>
+
+        <table border="1" cellspacing="0" cellpadding="8" class="notification-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Title</th>
+                    <th>Details</th>
+                    <th>Location</th>
+                    <th>File</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in notification %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.notification_title }}</td>
+                    <td>{{ i.notification_details }}</td>
+                    <td>{{ i.notification_location }}</td>
+                    <td>
+                        {% if i.notification_file %}
+                            <a href="{{ i.notification_file.url }}" target="_blank">View File</a>
+                        {% else %}
+                            No File
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.notification_status == 1 %}
+                            Completed
+                        {% else %}
+                            <a href="{% url 'Kudumbasree:deletenotification' i.id %}">Delete</a> |
+                            <a href="{% url 'Kudumbasree:editnotification' i.id %}">Mark Complete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No Notifications Added</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+h3 {
+    color: #042c5c;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+.notification-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.notification-table th,
+.notification-table td {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+}
+
+.notification-table th {
+    background-color: #f2f6fa;
+}
+
+@media screen and (max-width: 600px) {
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    .form-group input[type="text"] {
+        padding: 6px 10px;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Kudumbasree:AddNotification' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

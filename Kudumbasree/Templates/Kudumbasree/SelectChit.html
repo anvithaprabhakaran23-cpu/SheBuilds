@@ -1,0 +1,134 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>🎲 Chit Lottery</h3>
+
+    <!-- Lottery Button -->
+    <div class="card profile-card">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Run Lottery</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Lottery Result -->
+    <div class="card profile-card">
+        <h5>Lottery Result</h5>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Member Name</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in members %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.member.user.user_name }}</td>
+                    <td>{{ i.chitmembers_date }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No lottery results yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<style>
+/* Reuse the same style as other pages */
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+h5 {
+    color: #042c5c;
+    margin-bottom: 15px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+@media screen and (max-width: 600px) {
+    .btn, .btn-primary {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    .styled-table th, .styled-table td {
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+alert("{{ msg }}");
+window.location = "{% url 'Kudumbasree:AddChit' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

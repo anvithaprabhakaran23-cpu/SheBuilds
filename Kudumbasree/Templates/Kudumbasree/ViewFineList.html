@@ -1,0 +1,101 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>💰 Fine Payment List</h3>
+
+    {% if fine %}
+    <div class="card profile-card">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in fine %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.member.user.user_name }}</td>
+                    <td>{{ i.fine_date }}</td>
+                    <td>₹ {{ i.fine_amount }}</td>
+                    <td>
+                        {% if i.fine_status == 1 %}
+                            <span class="status-completed">Payment Completed</span>
+                        {% else %}
+                            <span class="status-pending">Payment Not Completed</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No fines found.</p>
+    {% endif %}
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+}
+
+.status-completed {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #f44336;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 600px) {
+    .styled-table th, .styled-table td {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+}
+</style>
+
+{% endblock content %}

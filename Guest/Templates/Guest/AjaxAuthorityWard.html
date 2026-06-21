@@ -1,0 +1,8 @@
+<select name="sel_ward" id="sel_ward">
+                    <option value="">--select--</option>
+                  {% for i in data %}
+                    <option value="{{i.id}}"
+                    
+                    >{{i.ward.ward_number}}</option>
+                    {% endfor %}
+                </select> 

@@ -1,0 +1,131 @@
+{% extends 'Guest/Header.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-title dark-background" data-aos="fade">
+  <div class="container position-relative">
+    <h1>Authority Registration</h1>
+    <p>Register as an official authority to manage local building and development projects.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        
+        <div class="card shadow-sm border-0 p-4 p-md-5">
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row g-4">
+              <div class="col-md-6">
+                <h5 class="mb-3 text-primary">General Information</h5>
+                
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Name</label>
+                  <input required type="text" name="txt_name" class="form-control" 
+                         title="Name Allows Only Alphabets, Spaces and First Letter Must Be Capital Letter"
+                         pattern="^[A-Z]+[a-zA-Z ]*$" placeholder="Enter full name">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Email</label>
+                  <input required type="email" name="txt_email" class="form-control" placeholder="auth@example.com">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Contact Number</label>
+                  <input required type="text" name="txt_num" class="form-control" 
+                         pattern="[7-9]{1}[0-9]{9}" title="Phone number starting with 7-9" placeholder="10-digit number">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Address</label>
+                  <textarea required name="txt_address" class="form-control" rows="3" placeholder="Official address"></textarea>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5 class="mb-3 text-primary">Verification & Region</h5>
+
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Photo</label>
+                    <input type="file" name="file_photo" class="form-control">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label fw-bold">Proof</label>
+                    <input type="file" name="file_proof" class="form-control">
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">District</label>
+                  <select name="sel_district" id="sel_district" class="form-select">
+                    <option value="">--select--</option>
+                    {% for i in district %}
+                    <option value="{{i.id}}">{{i.district_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Place</label>
+                  <select name="sel_place" id="sel_place" class="form-select">
+                    <option value="">--select--</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Authority Type</label>
+                  <select name="sel_authority" id="sel_authority" class="form-select">
+                    <option value="">--select--</option>
+                    {% for i in authority %}
+                    <option value="{{i.id}}">{{i.authoritytype_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Password</label>
+                  <input required type="password" name="txt_pass" class="form-control" placeholder="Create a strong password">
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary px-5 py-2" style="background: var(--accent-color); border: none;">Submit Registration</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>
+
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Guest:Authority' %}"
+</script>
+{% endif %}
+
+{% endblock content %}

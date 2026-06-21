@@ -1,0 +1,173 @@
+{% extends 'CDS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- KUDUMBASREE LIST TABLE CARD -->
+    <div class="card profile-card">
+        <div class="card-header">
+            <h2>Kudumbasree List (Your Ward)</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Local Place</th>
+                        <th>Authority</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k in kudumbasree_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ k.kudumbasree_name }}</td>
+                        <td>{{ k.kudumbasree_email }}</td>
+                        <td>{{ k.kudumbasree_contact }}</td>
+                        <td>{{ k.localplace.localplace_name }}</td>
+                        <td>{{ k.authority.authority_name }}</td>
+                        <td>
+                            {% if k.kudumbasree_status == 0 %}
+                                <a href="{% url 'CDS:ApproveKudumbasree' k.id %}" 
+                                   class="action-btn approve" 
+                                   onclick="return confirm('Approve this Kudumbasree?')">Approve</a>
+                                <a href="{% url 'CDS:RejectKudumbasree' k.id %}" 
+                                   class="action-btn reject" 
+                                   onclick="return confirm('Reject this Kudumbasree?')">Reject</a>
+                            {% elif k.kudumbasree_status == 1 %}
+                                <span class="status-label approved">Approved</span>
+                            {% else %}
+                                <span class="status-label rejected">Rejected</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-row">No Kudumbasree Found in Your Ward</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* Card Header */
+.card-header h2 {
+    margin: 0 0 20px;
+    font-size: 1.6rem;
+    color: #042c5c;
+    text-align: center;
+}
+
+/* Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.styled-table th {
+    background-color: #f3f6fb;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.styled-table tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+.action-btn.approve {
+    background-color: #42a5f5;
+}
+
+.action-btn.approve:hover {
+    background-color: #1e88e5;
+}
+
+.action-btn.reject {
+    background-color: #f44336;
+}
+
+.action-btn.reject:hover {
+    background-color: #d32f2f;
+}
+
+/* Status Labels */
+.status-label.approved {
+    color: green;
+    font-weight: 600;
+}
+
+.status-label.rejected {
+    color: #f44336;
+    font-weight: 600;
+}
+
+/* Empty row */
+.empty-row {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .styled-table th,
+    .styled-table td {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+    .action-btn {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+</style>
+
+{% endblock content %}

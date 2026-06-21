@@ -1,0 +1,99 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card profile-card">
+        <h3>Add Gallery Photo</h3>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Upload Photo</label>
+                <input type="file" name="file_photo" required>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 600px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+h3 {
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+@media screen and (max-width: 480px) {
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Kudumbasree:MyProduct' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

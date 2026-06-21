@@ -1,0 +1,139 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>📦 My Bookings</h3>
+
+    {% for b in bookingdata %}
+    <div class="card profile-card">
+
+        <div class="booking-header">
+            <div><strong>Date:</strong> {{ b.booking_date }}</div>
+            <div><strong>Amount:</strong> ₹ {{ b.booking_amount }}</div>
+            <div class="booking-status">
+                {% if b.booking_status == 1 %}
+                    <span class="status-pending">Payment not completed</span>
+                {% elif b.booking_status == 2 %}
+                    <span class="status-completed">Payment completed</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <h5>Booked Products</h5>
+
+        {% for c in b.tbl_cart_set.all %}
+        <div class="booking-product">
+            <div class="product-image">
+                <img src="{{ c.product.product_file.url }}" alt="{{ c.product.product_name }}">
+            </div>
+            <div class="product-details">
+                <p><strong>{{ c.product.product_name }}</strong></p>
+                <p>{{ c.product.product_details }}</p>
+                <p>Price: ₹ {{ c.product.product_price }} | Qty: {{ c.cart_quantity }}</p>
+            </div>
+            <div class="product-status">
+                {% if c.cart_status == 3 %}
+                    📦 Packed
+                {% elif c.cart_status == 4 %}
+                    🚚 Shipped
+                {% elif c.cart_status == 5 %}
+                    📍 Out for Delivery
+                {% elif c.cart_status == 6 %}
+                    🎉 Delivered Successfully
+                {% else %}
+                    ⏳ Tracking...
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p>No products in this booking</p>
+        {% endfor %}
+
+    </div>
+    {% empty %}
+    <p>No bookings found</p>
+    {% endfor %}
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.booking-status .status-completed {
+    color: green;
+    font-weight: bold;
+}
+
+.booking-status .status-pending {
+    color: red;
+    font-weight: bold;
+}
+
+.booking-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid #e2e8f0;
+    padding: 10px 0;
+}
+
+.product-image img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.product-details {
+    flex-grow: 1;
+}
+
+.product-status {
+    min-width: 120px;
+    text-align: center;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 600px) {
+    .booking-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .booking-product {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .product-status {
+        text-align: left;
+    }
+}
+</style>
+
+{% endblock content %}

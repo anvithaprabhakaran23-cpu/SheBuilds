@@ -1,0 +1,178 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<div class="col-12">
+
+    <!-- Page header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-1 fw-semibold">Local Place Management</h4>
+            <div class="text-muted small">Add and manage local places</div>
+        </div>
+    </div>
+
+    <div class="row g-4 align-items-stretch">
+
+        <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+            <!-- Left : Form -->
+        <div class="col-xl-4 col-lg-5 d-flex">
+
+            <div class="card border-0 shadow-sm w-100">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+                    <div class="mb-4">
+                        <h6 class="fw-semibold mb-1">Add Local Place</h6>
+                        <div class="text-muted small">Select district and place</div>
+                    </div>
+
+                    <form method="post" class="flex-grow-1 d-flex flex-column">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">District</label>
+                            <select name="sel_district"
+                                    id="sel_district"
+                                    class="form-select">
+                                <option value="">-- Select district --</option>
+                                {% for i in district %}
+                                    <option value="{{ i.id }}">
+                                        {{ i.district_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Place</label>
+                            <select name="sel_place"
+                                    id="sel_place"
+                                    class="form-select">
+                                <option value="">-- Select place --</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Local place</label>
+                            <input type="text"
+                                   name="txt_localplace"
+                                   class="form-control"
+                                   placeholder="Enter local place"
+                                   required>
+                        </div>
+
+                        <div class="mt-auto">
+                            <button type="submit" class="btn btn-primary px-4">
+                                Save
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Right : List -->
+        <div class="col-xl-8 col-lg-7 d-flex">
+
+            <div class="card border-0 shadow-sm w-100">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+                    <div class="mb-3">
+                        <h6 class="fw-semibold mb-1">Local Place List</h6>
+                        <div class="text-muted small">All registered local places</div>
+                    </div>
+
+                    <div class="table-responsive flex-grow-1">
+
+                        <table class="table table-sm align-middle table-hover mb-0">
+
+                            <thead class="text-muted small">
+                                <tr>
+                                    <th style="width:60px;">#</th>
+                                    <th>District</th>
+                                    <th>Place</th>
+                                    <th>Local Place</th>
+                                    <th class="text-end" style="width:100px;">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for i in localplace %}
+                                <tr>
+                                    <td class="text-muted">
+                                        {{ forloop.counter }}
+                                    </td>
+                                    <td>
+                                        {{ i.place.district.district_name }}
+                                    </td>
+                                    <td>
+                                        {{ i.place.place_name }}
+                                    </td>
+                                    <td class="fw-medium">
+                                        {{ i.localplace_name }}
+                                    </td>
+                                    <td class="text-end">
+
+                                        <a href="{% url 'Admin:dellocalplace' i.id %}"
+                                           class="btn btn-sm btn-light border text-danger"
+                                           onclick="return confirm('Delete this local place?')">
+                                            Delete
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        No local places found
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:LocalPlace' %}";
+</script>
+{% endif %}
+
+<!-- jQuery (needed for your existing ajax) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+
+        var ur = "{% url 'Guest:ajaxplace' %}";
+        $.ajax({
+            url: ur,
+            data: { did: did },
+            success: function (data) {
+                $("#sel_place").html(data);
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,218 @@
+{% extends 'ADS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- ADD NOTIFICATION FORM -->
+    <div class="card notification-card">
+        <div class="card-header">
+            <h2>Add Notification (ADS)</h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="notification-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="txt_title" required placeholder="Enter title">
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="txt_location" required placeholder="Enter location">
+            </div>
+
+            <div class="form-group">
+                <label>Details</label>
+                <textarea name="txt_details" rows="3" required placeholder="Enter details"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Upload File</label>
+                <input type="file" name="file_file">
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Add Notification</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- MY NOTIFICATIONS TABLE -->
+    <div class="card table-card">
+        <div class="card-header">
+            <h2>My Notifications</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Location</th>
+                        <th>File</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in notifications %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ n.notification_title }}</td>
+                        <td>{{ n.notification_details }}</td>
+                        <td>{{ n.notification_location }}</td>
+                        <td>
+                            {% if n.notification_file %}
+                                <a href="{{ n.notification_file.url }}" target="_blank">View</a>
+                            {% else %}
+                                No File
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if n.notification_status == 0 %}
+                            <a href="{% url 'ADS:DeleteNotification' n.id %}"
+                               onclick="return confirm('Delete this notification?')">Delete</a>
+                            <a href="{% url 'ADS:CompleteNotification' n.id %}">Complete</a>
+                            {% else %}
+                            <span class="completed-label">Completed</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No Notifications Added</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* Card Header */
+.card-header h2 {
+    margin: 0 0 20px;
+    color: #042c5c;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+    color: #042c5c;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 5px rgba(66,165,245,0.3);
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #42a5f5;
+    color: #fff;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #1e88e5;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.table a {
+    color: #42a5f5;
+    text-decoration: none;
+}
+
+.table a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+
+{% endblock content %}

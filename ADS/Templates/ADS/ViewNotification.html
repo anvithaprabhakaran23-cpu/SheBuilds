@@ -1,0 +1,198 @@
+{% extends 'ADS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- AUTHORITY NOTIFICATIONS -->
+    <div class="card table-card">
+        <div class="card-header">
+            <!-- <h2>Authority Notifications</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Location</th>
+                        <th>File</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in authority_notifications %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ n.notification_title }}</td>
+                        <td>{{ n.notification_details }}</td>
+                        <td>{{ n.notification_location }}</td>
+                        <td>
+                            {% if n.notification_file %}
+                                <a href="{{ n.notification_file.url }}" target="_blank">View</a>
+                            {% else %}
+                                No File
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if n.notification_status == 1 %}
+                                <span class="status completed">Completed</span>
+                            {% else %}
+                                <span class="status pending">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No Notifications Found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+
+    <!-- CDS NOTIFICATIONS -->
+    <div class="card table-card">
+        <div class="card-header">
+            <h2>CDS Notifications</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Location</th>
+                        <th>File</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in cds_notifications %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ n.notification_title }}</td>
+                        <td>{{ n.notification_details }}</td>
+                        <td>{{ n.notification_location }}</td>
+                        <td>
+                            {% if n.notification_file %}
+                                <a href="{{ n.notification_file.url }}" target="_blank">View</a>
+                            {% else %}
+                                No File
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if n.notification_status == 1 %}
+                                <span class="status completed">Completed</span>
+                            {% else %}
+                                <span class="status pending">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No Notifications Found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card Layout */
+.card.table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* Card Header */
+.card-header h2 {
+    margin: 0 0 20px;
+    color: #042c5c;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Table Styling */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.table a {
+    color: #42a5f5;
+    text-decoration: none;
+}
+
+.table a:hover {
+    text-decoration: underline;
+}
+
+/* Status Badges */
+.status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+}
+
+.status.pending {
+    background-color: #ffc107;
+}
+
+.status.completed {
+    background-color: #28a745;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .table th, .table td {
+        padding: 8px 10px;
+    }
+}
+</style>
+
+{% endblock content %}

@@ -1,0 +1,236 @@
+{% extends 'Authority/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card profile-card">
+
+        <!-- Add Notification Form -->
+        <div class="form-section">
+            <h3>Add Notification</h3>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="txt_title" placeholder="Enter notification title" required>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" name="txt_location" placeholder="Enter location" required>
+                </div>
+                <div class="form-group">
+                    <label>Details</label>
+                    <textarea name="txt_details" rows="3" placeholder="Enter details" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Upload File</label>
+                    <input type="file" name="file_file">
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Notification
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+<br>
+    <div class="card profile-card">
+        <!-- Notifications Table -->
+        <div class="table-section">
+            <h3>All Notifications</h3>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Location</th>
+                        <th>File</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in notifications %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ n.notification_title }}</td>
+                        <td>{{ n.notification_details }}</td>
+                        <td>{{ n.notification_location }}</td>
+                        <td>
+                            {% if n.notification_file %}
+                            <a href="{{ n.notification_file.url }}" target="_blank">View</a>
+                            {% else %}
+                            No File
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if n.notification_status == 0 %}
+                            <a href="{% url 'Authority:CompleteNotification' n.id %}" class="btn btn-complete"
+                                onclick="return confirm('Mark as completed?')">
+                                <i class="fas fa-check"></i> Complete
+                            </a>
+                            <a href="{% url 'Authority:DeleteNotification' n.id %}" class="btn btn-delete"
+                                onclick="return confirm('Delete this notification?')">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                            {% else %}
+                            <span class="status-completed">Completed</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No Notifications Added</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .page-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 15px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Card */
+    .card.profile-card {
+        background: #fff;
+        padding: 25px 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Section Titles */
+    .form-section h3,
+    .table-section h3 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #042c5c;
+    }
+
+    /* Form Inputs */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: #042c5c;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #42a5f5;
+        box-shadow: 0 0 5px rgba(66, 165, 245, 0.3);
+    }
+
+    /* Buttons */
+    .form-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+        border: none;
+        background-color: #42a5f5;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #1e88e5;
+    }
+
+    .btn-delete {
+        background-color: #f44336;
+    }
+
+    .btn-delete:hover {
+        background-color: #d32f2f;
+    }
+
+    .btn-complete {
+        background-color: #4caf50;
+    }
+
+    .btn-complete:hover {
+        background-color: #388e3c;
+    }
+
+    /* Table */
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 10px;
+        border-bottom: 1px solid #e2e8f0;
+        text-align: center;
+    }
+
+    .styled-table th {
+        background-color: #f1f5f9;
+        color: #042c5c;
+    }
+
+    .status-completed {
+        color: #4caf50;
+        font-weight: 500;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 550px) {
+        .form-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Authority:Notification' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

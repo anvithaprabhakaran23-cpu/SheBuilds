@@ -1,0 +1,186 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>📝 Submit Complaint</h3>
+
+    <!-- Complaint Submission Form -->
+    <div class="card profile-card">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Complaint Title</label>
+                <input type="text" name="txt_complaint" required placeholder="Enter complaint title">
+            </div>
+            <div class="form-group">
+                <label>Complaint Content</label>
+                <textarea name="txt_content" required placeholder="Enter complaint details" rows="4"></textarea>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Submit Complaint</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Complaint List -->
+    <div class="card profile-card">
+        <h5>My Complaints</h5>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Reply</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in complaint %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.complaint_title }}</td>
+                    <td>{{ i.complaint_content }}</td>
+                    <td>
+                        {% if i.complaint_reply %}
+                            {{ i.complaint_reply }}
+                        {% else %}
+                            <span style="color:gray;">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'User:deletecomplaint' i.id %}" class="btn btn-reject">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No Complaints Submitted</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+h5 {
+    color: #042c5c;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 1rem;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 5px rgba(66,165,245,0.3);
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+.btn-reject {
+    background-color: #f44336;
+}
+
+.btn-reject:hover {
+    background-color: #d32f2f;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+}
+
+@media screen and (max-width: 600px) {
+    .btn {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    .styled-table th, .styled-table td {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+alert("{{ msg }}");
+window.location="{% url 'User:Complaint' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

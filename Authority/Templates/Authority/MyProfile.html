@@ -1,0 +1,131 @@
+{% extends 'Authority/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card profile-card">
+
+        <div class="profile-photo">
+            <img src="{{authority.authority_photo.url}}" alt="Profile Photo">
+        </div>
+
+        <table class="profile-table">
+            <tr>
+                <td>Name</td>
+                <td>{{authority.authority_name}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{authority.authority_email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{authority.authority_contact}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{authority.authority_address}}</td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td>{{authority.place.district.district_name}}</td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td>{{authority.place.place_name}}</td>
+            </tr>
+        </table>
+
+        <div class="form-buttons">
+            <a href="{% url 'Authority:EditProfile' %}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Edit Profile
+            </a>
+            <a href="{% url 'Authority:ChangePassword' %}" class="btn btn-primary">
+                <i class="fas fa-key"></i> Change Password
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Profile Photo */
+.profile-photo img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #42a5f5;
+    margin-bottom: 20px;
+}
+
+/* Profile Table */
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.profile-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.profile-table tr:first-child td {
+    font-weight: 600;
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+    background-color: #42a5f5;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1e88e5;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+
+{% endblock content %}

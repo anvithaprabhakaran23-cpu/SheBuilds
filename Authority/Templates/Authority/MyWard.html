@@ -1,0 +1,180 @@
+{% extends 'Authority/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card profile-card">
+
+        <!-- Add Ward Form -->
+        <div class="form-section">
+            <h3>Add Ward</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <select name="sel_ward" id="sel_ward" required>
+                        <option value="">-- Select Ward --</option>
+                        {% for i in ward %}
+                        <option value="{{ i.id }}">{{ i.ward_number }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+
+        <br>
+    <div class="card profile-card">
+        <!-- Ward List -->
+        <div class="table-section">
+            <h3>My Wards</h3>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Ward</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in authorityward %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.ward.ward_number }}</td>
+                        <td>
+                            <a href="{% url 'Authority:deletemyward' i.id %}" class="btn btn-delete">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No Wards Added</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Section Titles */
+.form-section h3,
+.table-section h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #042c5c;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group select:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 5px rgba(66,165,245,0.3);
+}
+
+/* Table */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    background-color: #42a5f5;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1e88e5;
+}
+
+.btn-delete {
+    background-color: #f44336;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Authority:MyWard' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

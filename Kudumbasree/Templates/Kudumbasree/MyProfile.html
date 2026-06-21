@@ -1,0 +1,134 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>My Profile</h3>
+
+    <div class="card profile-card">
+        <table class="styled-table">
+            <tbody>
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td>{{ kudumbasree.kudumbasree_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td>{{ kudumbasree.kudumbasree_email }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Contact</strong></td>
+                    <td>{{ kudumbasree.kudumbasree_contact }}</td>
+                </tr>
+                <tr>
+                    <td><strong>District</strong></td>
+                    <td>{{ kudumbasree.localplace.place.district.district_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Place</strong></td>
+                    <td>{{ kudumbasree.localplace.place.place_name }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-buttons" style="margin-top:15px;">
+            <a href="{% url 'Kudumbasree:EditProfile' %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'Kudumbasree:ChangePassword' %}" class="btn btn-approve">Change Password</a>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 400px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+/* Card Styling */
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* Table Styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.styled-table tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.styled-table strong {
+    color: #042c5c;
+}
+
+/* Buttons */
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+.btn-approve {
+    background-color: #4caf50;
+    margin-left: 5px;
+}
+
+.btn-approve:hover {
+    background-color: #388e3c;
+}
+
+@media screen and (max-width: 600px) {
+    .btn, .btn-primary, .btn-approve {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    .styled-table td {
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Kudumbasree:MyProfile' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

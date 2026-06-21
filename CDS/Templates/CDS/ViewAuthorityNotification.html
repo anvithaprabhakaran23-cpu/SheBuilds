@@ -1,0 +1,147 @@
+{% extends 'CDS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- AUTHORITY NOTIFICATIONS TABLE CARD -->
+    <div class="card profile-card">
+        <div class="card-header">
+            <h2>Authority Notifications</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Location</th>
+                        <th>File</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in notifications %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ n.notification_title }}</td>
+                        <td>{{ n.notification_details }}</td>
+                        <td>{{ n.notification_location }}</td>
+                        <td>
+                            {% if n.notification_file %}
+                                <a href="{{ n.notification_file.url }}" target="_blank" class="file-link">View</a>
+                            {% else %}
+                                No File
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if n.notification_status == 1 %}
+                                <span class="completed-label">Completed</span>
+                            {% else %}
+                                <span class="pending-label">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-row">No Notifications Available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* Card Header */
+.card-header h2 {
+    margin: 0 0 20px;
+    font-size: 1.6rem;
+    color: #042c5c;
+    text-align: center;
+}
+
+/* Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.styled-table th {
+    background-color: #f3f6fb;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.styled-table tr:hover {
+    background-color: #f1f5f9;
+}
+
+.file-link {
+    color: #42a5f5;
+    text-decoration: none;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+}
+
+.completed-label {
+    color: green;
+    font-weight: 600;
+}
+
+.pending-label {
+    color: #f44336;
+    font-weight: 600;
+}
+
+.empty-row {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .styled-table th,
+    .styled-table td {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+}
+</style>
+
+{% endblock content %}

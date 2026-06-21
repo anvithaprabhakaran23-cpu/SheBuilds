@@ -1,0 +1,220 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>📅 Meeting Management</h3>
+
+    <!-- Add Meeting Form -->
+    <div class="card profile-card">
+        <h5>Add New Meeting</h5>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>To Date</label>
+                <input type="date" name="todate" id="todate" required>
+            </div>
+            <div class="form-group">
+                <label>Time</label>
+                <input type="time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label>Details</label>
+                <input type="text" name="txt_details" placeholder="Enter meeting details" required>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="txt_loc" placeholder="Enter meeting location">
+            </div>
+            <div class="form-group">
+                <label>Meeting URL</label>
+                <input type="url" name="txt_url" placeholder="Enter meeting URL">
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Create Meeting</button>
+            </div>
+        </form>
+    </div>
+
+    <br>
+
+    <!-- Meeting List -->
+    <div class="card profile-card">
+        <h5>Meeting List</h5>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Date</th>
+                    <th>To Date</th>
+                    <th>Time</th>
+                    <th>Details</th>
+                    <th>Location</th>
+                    <th>Meeting</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in meeting %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.meeting_date }}</td>
+                    <td>{{ i.meeting_todate }}</td>
+                    <td>{{ i.meeting_time }}</td>
+                    <td>{{ i.meeting_details }}</td>
+                    <td>{{ i.meeting_location }}</td>
+                    <td>
+                        {% if i.meeting_url %}
+                            <a href="{{ i.meeting_url }}" target="_blank" class="btn btn-approve">Join</a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'Kudumbasree:deletemeeting' i.id %}" class="btn btn-reject">Delete</a>
+                        <a href="{% url 'Kudumbasree:Attendance' i.id %}" class="btn btn-approve">Attendance</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No meetings added yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<style>
+/* Reuse the same theme from Chit Management */
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+h5 {
+    color: #042c5c;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 5px rgba(66,165,245,0.3);
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+.btn-approve {
+    background-color: #4caf50;
+    margin-left: 5px;
+}
+
+.btn-approve:hover {
+    background-color: #388e3c;
+}
+
+.btn-reject {
+    background-color: #f44336;
+    margin-right: 5px;
+}
+
+.btn-reject:hover {
+    background-color: #d32f2f;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+}
+
+@media screen and (max-width: 600px) {
+    .btn, .btn-approve, .btn-reject {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    .styled-table th, .styled-table td {
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Kudumbasree:Meeting' %}";
+</script>
+{% endif %}
+<script>
+  document.getElementById("todate").min = new Date().toISOString().split("T")[0];
+</script>
+{% endblock content %}

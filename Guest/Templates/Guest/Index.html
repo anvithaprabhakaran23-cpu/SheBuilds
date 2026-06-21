@@ -1,0 +1,589 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>SheBuilds</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'Main/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'Main/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'Main/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'Main/assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Nova
+  * Template URL: https://bootstrapmade.com/nova-bootstrap-business-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'Guest:index' %}" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'Main/assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">SheBuilds</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'Guest:index' %}" class="active">Home<br></a></li>
+          <!-- <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="blog.html">Blog</a></li> -->
+          <li class="dropdown"><a href="#"><span>Registration</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="{% url 'Guest:UserRegistration' %}">User</a></li>
+              <li><a href="{% url 'Guest:Authority' %}">Authority</a></li>
+              <li><a href="{% url 'Guest:Kudumbasree' %}">Kudumbasree</a></li>
+              <!-- <li><a href="#">Kudumbasree</a></li> -->
+              <!-- <li><a href="#">Dropdown 4</a></li> -->
+              <!-- <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="#">Deep Dropdown 1</a></li>
+                  <li><a href="#">Deep Dropdown 2</a></li>
+                  <li><a href="#">Deep Dropdown 3</a></li>
+                  <li><a href="#">Deep Dropdown 4</a></li>
+                  <li><a href="#">Deep Dropdown 5</a></li>
+                </ul>
+              </li> -->
+            </ul>
+          </li>
+          <li><a href="{% url 'Guest:Login' %}">Login</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+  <img src="{% static 'Main/assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4">
+        <h1 data-aos="fade-up">Digital Platform for Kudumbasree</h1>
+
+        <blockquote data-aos="fade-up" data-aos-delay="100">
+          <p>
+            Our Online Kudumbasree System helps members manage savings, 
+            meetings, activities, and communication easily. It supports 
+            women empowerment by providing a simple digital platform 
+            for Kudumbasree units to organize and manage their work efficiently.
+          </p>
+        </blockquote>
+
+        <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+          <a href="#about" class="btn-get-started">Explore System</a>
+
+          <a href="#" class="glightbox btn-watch-video d-flex align-items-center">
+            <i class="bi bi-people"></i>
+            <span>About Kudumbasree</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+    <!-- Why Us Section -->
+  <!-- Why Us Section -->
+<section id="why-us" class="why-us section">
+
+  <div class="container">
+
+    <div class="row g-0">
+
+      <div class="col-xl-5 img-bg" data-aos="fade-up" data-aos-delay="100">
+        <img src="{% static 'Main/assets/img/why-us-bg.jpg' %}" alt="">
+      </div>
+
+      <div class="col-xl-7 slides position-relative" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+          {
+            "loop": true,
+            "speed": 600,
+            "autoplay": {
+              "delay": 5000
+            },
+            "slidesPerView": "auto",
+            "centeredSlides": true,
+            "pagination": {
+              "el": ".swiper-pagination",
+              "type": "bullets",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".swiper-button-next",
+              "prevEl": ".swiper-button-prev"
+            }
+          }
+          </script>
+
+          <div class="swiper-wrapper">
+
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Easy Member Management</h3>
+                <h4 class="mb-3">Manage Kudumbasree members digitally</h4>
+                <p>
+                  The Online Kudumbasree System helps administrators manage member details, 
+                  registration, and membership status efficiently. It simplifies the process 
+                  of maintaining member information and improves organization within the group.
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Savings and Financial Tracking</h3>
+                <h4 class="mb-3">Monitor group savings and transactions</h4>
+                <p>
+                  This system allows Kudumbasree units to record savings, contributions, 
+                  and financial activities. It ensures transparency and makes it easier 
+                  to track the financial growth of the group.
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Meeting and Activity Updates</h3>
+                <h4 class="mb-3">Stay updated with group activities</h4>
+                <p>
+                  Members can receive updates about meetings, community activities, 
+                  and important announcements. This improves communication and keeps 
+                  every member informed about Kudumbasree events.
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="swiper-slide">
+              <div class="item">
+                <h3 class="mb-3">Empowering Women Through Technology</h3>
+                <h4 class="mb-3">Supporting digital transformation</h4>
+                <p>
+                  The Online Kudumbasree System supports women's empowerment by 
+                  providing a digital platform to manage group activities, 
+                  encourage participation, and strengthen community development.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section><!-- /Why Us Section -->
+
+    <!-- Services Section -->
+    <!-- service section-->
+<section id="services" class="services section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Our Services</h2>
+    <p>Key features provided by the Online Kudumbasree Management System</p>
+  </div><!-- End Section Title -->
+
+  <div class="container">
+
+    <div class="row gy-4">
+
+      <!-- Service 1 -->
+      <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
+        <div class="icon flex-shrink-0"><i class="bi bi-people" style="color: #f57813;"></i></div>
+        <div>
+          <h4 class="title">Member Management</h4>
+          <p class="description">Manage Kudumbasree members, view profiles, and maintain membership records easily through the online system.</p>
+          <a href="#" class="readmore stretched-link"><span>View Members</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <!-- End Service Item -->
+
+      <!-- Service 2 -->
+      <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
+        <div class="icon flex-shrink-0"><i class="bi bi-piggy-bank" style="color: #15a04a;"></i></div>
+        <div>
+          <h4 class="title">Savings Management</h4>
+          <p class="description">Record and track monthly savings of members and maintain transparent financial records for the Kudumbasree unit.</p>
+          <a href="#" class="readmore stretched-link"><span>View Savings</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div><!-- End Service Item -->
+
+      <!-- Service 3 -->
+      <!-- <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
+        <div class="icon flex-shrink-0"><i class="bi bi-cash-coin" style="color: #d90769;"></i></div>
+        <div>
+          <h4 class="title">Loan Management</h4>
+          <p class="description">Members can apply for loans and administrators can manage loan approvals and repayment details.</p>
+          <a href="#" class="readmore stretched-link"><span>Loan Details</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>End Service Item -->
+
+      <!-- Service 4 -->
+      <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
+        <div class="icon flex-shrink-0"><i class="bi bi-calendar-event" style="color: #15bfbc;"></i></div>
+        <div>
+          <h4 class="title">Meeting Management</h4>
+          <p class="description">Schedule meetings and update members with important announcements and Kudumbasree activities.</p>
+          <a href="#" class="readmore stretched-link"><span>View Meetings</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div><!-- End Service Item -->
+
+      <!-- Service 5 -->
+      <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="500">
+        <div class="icon flex-shrink-0"><i class="bi bi-check2-square" style="color: #f5cf13;"></i></div>
+        <div>
+          <h4 class="title">Attendance Tracking</h4>
+          <p class="description">Maintain attendance records for members during meetings and activities in a simple digital format.</p>
+          <a href="#" class="readmore stretched-link"><span>View Attendance</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div><!-- End Service Item -->
+
+      <!-- Service 6 -->
+      <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
+        <div class="icon flex-shrink-0"><i class="bi bi-bell" style="color: #1335f5;"></i></div>
+        <div>
+          <h4 class="title">Notifications & Updates</h4>
+          <p class="description">Send notifications and updates to members about meetings, savings, and important Kudumbasree information.</p>
+          <a href="#" class="readmore stretched-link"><span>View Updates</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div><!-- End Service Item -->
+
+    </div>
+
+  </div>
+
+</section><!-- /Services Section -->
+    <!-- Call To Action Section -->
+    
+<section id="call-to-action" class="call-to-action section dark-background">
+
+  <!-- <img src="{% static 'Main/assets/img/cta-bg.jpg' %}" alt=""> -->
+
+  <div class="container">
+    <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+      <div class="col-xl-10">
+        <div class="text-center">
+          <h3>Empowering Women Through Kudumbasree</h3>
+          <p>
+            The Online Kudumbasree System helps members manage savings, meetings,
+            loans, and community activities in a simple digital platform. 
+            It supports transparency, better communication, and efficient 
+            management of Kudumbasree units.
+          </p>
+          <a class="cta-btn" href="#">Join Kudumbasree</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section> <!--Call To Action Section -->
+
+    <!-- Features Section -->
+<section id="features" class="features section">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="mb-0">Powerful Features for</h3>
+        <h3>Kudumbasree Management</h3>
+
+        <div class="row gy-4">
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-people" style="color: #ff8b2c;"></i>
+              <span>Member Registration & Management</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-piggy-bank" style="color: #5578ff;"></i>
+              <span>Track Monthly Savings</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-calendar-event" style="color: #e80368;"></i>
+              <span>Meeting Scheduling</span>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-cash-coin" style="color: #ffa76e;"></i>
+              <span>Loan Request & Management</span>
+            </div>
+          </div> -->
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-check2-square" style="color: #11dbcf;"></i>
+              <span>Member Attendance Tracking</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-bell" style="color: #4233ff;"></i>
+              <span>Notifications & Announcements</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-bar-chart" style="color: #29cc61;"></i>
+              <span>Financial Reports & Records</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="icon-list d-flex">
+              <i class="bi bi-shield-check" style="color: #ff5828;"></i>
+              <span>Secure & Transparent System</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="col-lg-5 position-relative" data-aos="zoom-out" data-aos-delay="200">
+        <div class="phone-wrap">
+          <img src="{% static 'Main/assets/img/iphone.png' %}" alt="Image" class="img-fluid">
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <h4>Simple Digital Solution for<br>Kudumbasree Units</h4>
+          <p>
+            The Online Kudumbasree System provides an easy platform to manage
+            members, savings, meetings, and financial activities. It improves
+            transparency, organization, and communication within Kudumbasree groups.
+          </p>
+          <a href="#about" class="btn-get-started">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+    <!-- Recent Posts Section -->
+<section id="recent-posts" class="recent-posts section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Latest Kudumbasree Updates</h2>
+  </div><!-- End Section Title -->
+
+  <div class="container">
+
+    <div class="row gy-5">
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="post-box">
+          <div class="post-img"><img src="{% static 'Main/assets/img/blog/blog-1.jpg' %}" class="img-fluid" alt=""></div>
+          <div class="meta">
+            <span class="post-date">Jan 10, 2026</span>
+            <span class="post-author"> / Admin</span>
+          </div>
+          <h3 class="post-title">Women Empowerment through Kudumbasree</h3>
+          <p>Kudumbasree plays a major role in empowering women by promoting savings, self-employment, and community participation across Kerala.</p>
+          <a href="#" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="post-box">
+          <div class="post-img"><img src="{% static 'Main/assets/img/blog/blog-2.jpg' %}" class="img-fluid" alt=""></div>
+          <div class="meta">
+            <span class="post-date">Feb 02, 2026</span>
+            <span class="post-author"> / Admin</span>
+          </div>
+          <h3 class="post-title">Digital Management of Kudumbasree Units</h3>
+          <p>The Online Kudumbasree System helps manage members, savings, loans, and meetings in a simple and transparent digital platform.</p>
+          <a href="#" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="post-box">
+          <div class="post-img"><img src="{% static 'Main/assets/img/blog/blog-3.jpg' %}" class="img-fluid" alt=""></div>
+          <div class="meta">
+            <span class="post-date">Feb 20, 2026</span>
+            <span class="post-author"> / Admin</span>
+          </div>
+          <h3 class="post-title">Benefits of Group Savings</h3>
+          <p>Regular group savings help Kudumbasree members support each other financially and provide loans for small businesses and needs.</p>
+          <a href="#" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="800">
+        <div class="post-box">
+          <div class="post-img"><img src="{% static 'Main/assets/img/blog/blog-4.jpg' %}" class="img-fluid" alt=""></div>
+          <div class="meta">
+            <span class="post-date">Mar 01, 2026</span>
+            <span class="post-author"> / Admin</span>
+          </div>
+          <h3 class="post-title">Community Development Activities</h3>
+          <p>Kudumbasree supports social welfare programs, skill development, and entrepreneurship opportunities for women.</p>
+          <a href="#" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section><!-- /Recent Posts Section -->
+
+  </main>
+
+<footer id="footer" class="footer light-background">
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row gy-4">
+
+        <!-- About -->
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Kudumbasree System</span>
+          </a>
+          <p>
+            The Online Kudumbasree Management System is a digital platform designed
+            to manage Kudumbasree members, savings, meetings, and financial activities.
+            It helps improve transparency, organization, and communication within
+            Kudumbasree units and supports women empowerment.
+          </p>
+
+          <div class="social-links d-flex mt-4">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-twitter-x"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Useful Links -->
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Kudumbasree</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Member Management</a></li>
+            <li><a href="#">Savings Management</a></li>
+            <li><a href="#">Loan Management</a></li>
+            <li><a href="#">Meeting Updates</a></li>
+            <li><a href="#">Attendance Tracking</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Kudumbasree Mission</p>
+          <p>Kerala, India</p>
+
+          <p class="mt-4"><strong>Phone:</strong> <span>+91 98765 43210</span></p>
+          <p><strong>Email:</strong> <span>kudumbasree@gmail.com</span></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container copyright text-center">
+    <p>© <span>Copyright</span> <strong class="px-1 sitename">Kudumbasree System</strong> <span>All Rights Reserved</span></p>
+  </div>
+
+</footer>
+
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+<i class="bi bi-arrow-up-short"></i>
+</a>
+
+<!-- Preloader -->
+<div id="preloader"></div>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'Main/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'Main/assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'Main/assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'Main/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'Main/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'Main/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'Main/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+<!-- Main JS File -->
+<script src="{% static 'Main/assets/js/main.js' %}"></script>
+
+</body>
+</html>

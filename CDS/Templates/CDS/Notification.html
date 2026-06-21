@@ -1,0 +1,278 @@
+{% extends 'CDS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- FORM CARD -->
+    <div class="card profile-card">
+        <div class="card-header">
+            <h2>Add Notification (CDS)</h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Title</label>
+                <div class="input-container">
+                    <i class="fas fa-heading"></i>
+                    <input type="text" name="txt_title" placeholder="Enter notification title" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <div class="input-container">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" name="txt_location" placeholder="Enter location" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Details</label>
+                <div class="input-container">
+                    <textarea name="txt_details" rows="3" placeholder="Enter notification details" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Upload File</label>
+                <div class="input-container">
+                    <input type="file" name="file_file">
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Notification
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- TABLE CARD -->
+    <div class="card profile-card">
+        <div class="card-header">
+            <h2>My Notifications</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Location</th>
+                        <th>File</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for n in notifications %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ n.notification_title }}</td>
+                        <td>{{ n.notification_details }}</td>
+                        <td>{{ n.notification_location }}</td>
+                        <td>
+                            {% if n.notification_file %}
+                            <a href="{{ n.notification_file.url }}" target="_blank">View</a>
+                            {% else %}
+                            No File
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if n.notification_status == 0 %}
+                            <a href="{% url 'CDS:CompleteNotification' n.id %}" class="action-btn complete"
+                                onclick="return confirm('Mark as completed?')">Complete</a>
+                            <a href="{% url 'CDS:DeleteNotification' n.id %}" class="action-btn delete"
+                                onclick="return confirm('Delete this notification?')">Delete</a>
+                            {% else %}
+                            <span class="completed-label">Completed</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-row">No Notifications Added</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* Page Container */
+    .page-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Card */
+    .card.profile-card {
+        background: #fff;
+        padding: 25px 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    /* Card Header */
+    .card-header h2 {
+        margin: 0 0 20px;
+        font-size: 1.6rem;
+        color: #042c5c;
+        text-align: center;
+    }
+
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #042c5c;
+    }
+
+    /* Inputs with icons */
+    .input-container {
+        position: relative;
+    }
+
+    .input-container i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #42a5f5;
+    }
+
+    .input-container input,
+    .input-container textarea {
+        width: 100%;
+        padding: 10px 12px 10px 40px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.2s;
+    }
+
+    .input-container input:focus,
+    .input-container textarea:focus {
+        border-color: #42a5f5;
+        box-shadow: 0 0 5px rgba(66, 165, 245, 0.3);
+    }
+
+    /* Form Buttons */
+    .form-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: #42a5f5;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #1e88e5;
+    }
+
+    /* Table */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .styled-table th {
+        background-color: #f3f6fb;
+        color: #042c5c;
+        font-weight: 600;
+    }
+
+    .styled-table tr:hover {
+        background-color: #f1f5f9;
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        border-radius: 6px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        margin-right: 5px;
+    }
+
+    .action-btn.complete {
+        background-color: #42a5f5;
+    }
+
+    .action-btn.complete:hover {
+        background-color: #1e88e5;
+    }
+
+    .action-btn.delete {
+        background-color: #f44336;
+    }
+
+    .action-btn.delete:hover {
+        background-color: #d32f2f;
+    }
+
+    .completed-label {
+        color: green;
+        font-weight: 600;
+    }
+
+    .empty-row {
+        text-align: center;
+        font-style: italic;
+        color: #6c757d;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 600px) {
+        .form-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+
+{% endblock content %}

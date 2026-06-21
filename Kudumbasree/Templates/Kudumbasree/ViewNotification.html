@@ -1,0 +1,212 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- <h3>📢 Authority Notifications</h3>
+    <div class="card profile-card">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Details</th>
+                    <th>Location</th>
+                    <th>File</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in authority_notifications %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ n.notification_title }}</td>
+                    <td>{{ n.notification_details }}</td>
+                    <td>{{ n.notification_location }}</td>
+                    <td>
+                        {% if n.notification_file %}
+                            <a href="{{ n.notification_file.url }}" target="_blank" class="btn btn-primary">View</a>
+                        {% else %}
+                            No File
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if n.notification_status == 1 %}
+                            <span class="status-completed">Completed</span>
+                        {% else %}
+                            <span class="status-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6">No Authority Notifications</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> -->
+
+    <!-- <h3>📢 CDS Notifications</h3>
+    <div class="card profile-card">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Details</th>
+                    <th>Location</th>
+                    <th>File</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in cds_notifications %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ n.notification_title }}</td>
+                    <td>{{ n.notification_details }}</td>
+                    <td>{{ n.notification_location }}</td>
+                    <td>
+                        {% if n.notification_file %}
+                            <a href="{{ n.notification_file.url }}" target="_blank" class="btn btn-primary">View</a>
+                        {% else %}
+                            No File
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if n.notification_status == 1 %}
+                            <span class="status-completed">Completed</span>
+                        {% else %}
+                            <span class="status-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6">No CDS Notifications</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> -->
+
+    <h3>📢 ADS Notifications</h3>
+    <div class="card profile-card">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Details</th>
+                    <th>Location</th>
+                    <th>File</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in ads_notifications %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ n.notification_title }}</td>
+                    <td>{{ n.notification_details }}</td>
+                    <td>{{ n.notification_location }}</td>
+                    <td>
+                        {% if n.notification_file %}
+                            <a href="{{ n.notification_file.url }}" target="_blank" class="btn btn-primary">View</a>
+                        {% else %}
+                            No File
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if n.notification_status == 1 %}
+                            <span class="status-completed">Completed</span>
+                        {% else %}
+                            <span class="status-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6">No ADS Notifications</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 15px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+}
+
+.status-completed {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #f44336;
+    font-weight: 500;
+}
+
+.btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.85rem;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+@media screen and (max-width: 600px) {
+    .styled-table th, .styled-table td {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+    .btn {
+        font-size: 0.75rem;
+        padding: 3px 6px;
+    }
+}
+</style>
+
+{% endblock content %}

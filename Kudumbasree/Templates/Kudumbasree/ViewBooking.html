@@ -1,0 +1,176 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>📦 View Bookings</h3>
+
+    {% if booking %}
+        {% for b in booking %}
+        <div class="card profile-card">
+
+            <!-- Booking Info -->
+            <div class="booking-header">
+                <span><strong>Date:</strong> {{ b.booking_date }}</span> |
+                <span><strong>Amount:</strong> ₹ {{ b.booking_amount }}</span>
+            </div>
+            <div class="booking-buyer">
+                <strong>Buyer:</strong> {{ b.user.user_name }}
+            </div>
+            <div class="booking-status">
+                {% if b.booking_status == 1 %}
+                    <span class="status-pending">Payment not completed</span>
+                {% elif b.booking_status == 2 %}
+                    <span class="status-completed">Payment completed</span>
+                {% endif %}
+            </div>
+
+            <!-- Products -->
+            <div class="booking-products">
+                {% for c in b.tbl_cart_set.all %}
+                    {% if c.product.kudumbasree_id == request.session.kid %}
+                    <div class="product-card">
+
+                        <div class="product-image">
+                            <img src="{{ c.product.product_file.url }}" alt="{{ c.product.product_name }}">
+                        </div>
+
+                        <div class="product-details">
+                            <div><strong>{{ c.product.product_name }}</strong></div>
+                            <div>{{ c.product.product_details }}</div>
+                            <div>Price: ₹ {{ c.product.product_price }} | Qty: {{ c.cart_quantity }}</div>
+
+                            <div class="product-action">
+                                {% if c.cart_status == 2 %}
+                                    <a href="{% url 'Kudumbasree:UpdateCartStatus' c.id 3 %}" class="btn btn-approve">📦 Mark as Packed</a>
+                                {% elif c.cart_status == 3 %}
+                                    <a href="{% url 'Kudumbasree:UpdateCartStatus' c.id 4 %}" class="btn btn-approve">🚚 Mark as Shipped</a>
+                                {% elif c.cart_status == 4 %}
+                                    <a href="{% url 'Kudumbasree:UpdateCartStatus' c.id 5 %}" class="btn btn-approve">📍 Mark as Out for Delivery</a>
+                                {% elif c.cart_status == 5 %}
+                                    <a href="{% url 'Kudumbasree:UpdateCartStatus' c.id 6 %}" class="btn btn-approve">✅ Mark as Delivered</a>
+                                {% elif c.cart_status == 6 %}
+                                    <span class="status-delivered">🎉 Delivered Successfully</span>
+                                {% else %}
+                                    <span class="status-pending">⏳ Waiting for Payment</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No bookings found</p>
+    {% endif %}
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.booking-header {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.booking-buyer {
+    margin-bottom: 10px;
+}
+
+.booking-status {
+    margin-bottom: 15px;
+}
+
+.status-pending {
+    color: #f44336;
+    font-weight: 500;
+}
+
+.status-completed {
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.status-delivered {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.booking-products {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.product-card {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.product-image img {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.product-details {
+    flex-grow: 1;
+}
+
+.product-action a {
+    margin-right: 5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.btn-approve {
+    background-color: #4caf50;
+}
+
+.btn-approve:hover {
+    background-color: #388e3c;
+}
+
+@media screen and (max-width: 600px) {
+    .product-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .product-image img {
+        margin-bottom: 5px;
+    }
+}
+</style>
+
+{% endblock content %}

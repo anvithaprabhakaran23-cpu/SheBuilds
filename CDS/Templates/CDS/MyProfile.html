@@ -1,0 +1,176 @@
+{% extends 'CDS/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <div class="card profile-card">
+        <div class="card-header">
+            <h2>Profile</h2>
+        </div>
+
+        <form action="" method="post" class="profile-form">
+            {% csrf_token %}
+
+            <div class="profile-photo-container">
+                <img src="{{cds.cds_photo.url}}" alt="Profile Photo" class="profile-photo">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input id="name" type="text" name="txt_name" value="{{cds.cds_name}}" placeholder="Enter your name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input id="email" type="text" name="txt_email" value="{{cds.cds_email}}" placeholder="Enter your email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact</label>
+                <div class="input-container">
+                    <i class="fas fa-phone"></i>
+                    <input id="contact" type="text" name="txt_num" value="{{cds.cds_contact}}" placeholder="Enter contact number">
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check"></i> Update Profile
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'CDS:MyProfile' %}"
+</script>
+{% endif %}
+
+<style>
+/* Page Container */
+.page-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.card.profile-card {
+    padding: 30px 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Card Header */
+.card-header h2 {
+    margin: 0 0 20px;
+    text-align: center;
+    color: #042c5c;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Profile Photo */
+.profile-photo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #42a5f5;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #042c5c;
+}
+
+/* Input Container */
+.input-container {
+    position: relative;
+}
+
+.input-container i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #42a5f5;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-container input:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 5px rgba(66,165,245,0.3);
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+
+{% endblock content %}

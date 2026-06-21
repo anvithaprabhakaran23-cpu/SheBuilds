@@ -1,0 +1,134 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <!-- Add Product Card -->
+    <div class="card profile-card">
+        <h3>Add Product</h3>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="txt_name" placeholder="Enter product name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                <input type="text" name="txt_price" placeholder="Enter price" required>
+            </div>
+
+            <div class="form-group">
+                <label>Product Details</label>
+                <input type="text" name="txt_details" placeholder="Enter product details" required>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select name="sel_category" required>
+                    <option value="">--Select Category--</option>
+                    {% for i in category %}
+                        <option value="{{ i.id }}">{{ i.category_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Photo</label>
+                <input type="file" name="file_photo" required>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 700px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+h3 {
+    color: #042c5c;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+}
+
+.form-buttons {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+@media screen and (max-width: 600px) {
+    .form-group input[type="text"],
+    .form-group select,
+    .form-group input[type="file"] {
+        padding: 6px 10px;
+    }
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+alert("{{ msg }}");
+window.location="{% url 'Kudumbasree:AddProduct' %}";
+</script>
+{% endif %}
+
+{% endblock %}

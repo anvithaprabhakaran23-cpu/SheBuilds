@@ -1,0 +1,142 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>📅 Kudumbasree Meetings</h3>
+
+    {% if meeting %}
+    <div class="card profile-card">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Date</th>
+                    <th>To Date</th>
+                    <th>Time</th>
+                    <th>Details</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in meeting %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.meeting_date }}</td>
+                    <td>{{ i.meeting_todate }}</td>
+                    <td>{{ i.meeting_time }}</td>
+                    <td>{{ i.meeting_details }}</td>
+                    <td>{{ i.meeting_location }}</td>
+                    <td>
+                        <a href="{{ i.meeting_url }}" target="_blank" class="btn btn-primary">Join</a>
+                        {% if i.status %}
+                            {% if i.status == 1 %}
+                                <span class="status-present">Present</span>
+                            {% elif i.status == 2 %}
+                                <span class="status-absent">Absent</span>
+                            {% endif %}
+                        {% else %}
+                            {% if i.amount %}
+                                <a href="{% url 'User:addsavings' i.id i.amount %}" class="btn btn-approve">Pay ₹{{ i.amount }}</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No meetings scheduled.</p>
+    {% endif %}
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.btn {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    margin: 2px 0;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+.btn-approve {
+    background-color: #4caf50;
+}
+
+.btn-approve:hover {
+    background-color: #388e3c;
+}
+
+.status-present {
+    color: green;
+    font-weight: bold;
+}
+
+.status-absent {
+    color: red;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    .styled-table th, .styled-table td {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+    .btn {
+        font-size: 0.8rem;
+        padding: 3px 6px;
+    }
+}
+</style>
+
+{% endblock content %}

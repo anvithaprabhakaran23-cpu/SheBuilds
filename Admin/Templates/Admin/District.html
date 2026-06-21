@@ -1,0 +1,165 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<div class="col-12">
+
+    <!-- Page header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-1 fw-semibold">District Management</h4>
+            <div class="text-muted small">Create, update and manage districts</div>
+        </div>
+    </div>
+
+    <!-- Main columns -->
+    <div class="row g-4 align-items-stretch ">
+
+        <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+            <!-- Left column -->
+        <div class="col-xl-4 col-lg-5">
+
+            <div class="card border-0 shadow-sm w-100">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+                    <div class="mb-4">
+                        <h6 class="fw-semibold mb-1">
+                            {% if editdata %}
+                                Edit District
+                            {% else %}
+                                Add District
+                            {% endif %}
+                        </h6>
+                        <div class="text-muted small">
+                            Fill the information below
+                        </div>
+                    </div>
+
+                    <form method="post" class="flex-grow-1 d-flex flex-column">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">
+                                District name
+                            </label>
+                            <input
+                                type="text"
+                                name="txt_name"
+                                class="form-control"
+                                placeholder="Eg : Ernakulam"
+                                required
+                                value="{{ editdata.district_name }}">
+                        </div>
+
+                        <!-- push buttons to bottom of column -->
+                        <div class="mt-auto d-flex gap-2">
+
+                            <button type="submit" class="btn btn-primary px-4">
+                                {% if editdata %}
+                                    Update
+                                {% else %}
+                                    Save
+                                {% endif %}
+                            </button>
+
+                            <button type="reset" class="btn btn-outline-secondary px-4">
+                                Clear
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Right column -->
+        <div class="col-xl-8 col-lg-7 d-flex">
+
+            <div class="card border-0 shadow-sm w-100">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+                    <div class="mb-3">
+                        <h6 class="fw-semibold mb-1">District list</h6>
+                        <div class="text-muted small">
+                            All registered districts
+                        </div>
+                    </div>
+
+                    <div class="table-responsive flex-grow-1">
+
+                        <table class="table table-sm align-middle table-hover mb-0">
+
+                            <thead class="text-muted small">
+                                <tr>
+                                    <th class="text-start" style="width:60px;">#</th>
+                                    <th class="text-start">District</th>
+                                    <th class="text-end" style="width:140px;">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for i in district %}
+                                <tr>
+
+                                    <td class="text-start text-muted">
+                                        {{ forloop.counter }}
+                                    </td>
+
+                                    <td class="text-start fw-medium">
+                                        {{ i.district_name }}
+                                    </td>
+
+                                    <td class="text-end d-flex">
+
+                                        <a href="{% url 'Admin:editdistrict' i.id %}"
+                                           class="btn btn-sm btn-light border me-1">
+                                            Edit
+                                        </a>
+
+                                        <a href="{% url 'Admin:deldistrict' i.id %}"
+                                           class="btn btn-sm btn-light border text-danger"
+                                           onclick="return confirm('Delete this district?')">
+                                            Delete
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted py-4">
+                                        No districts found
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:District' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

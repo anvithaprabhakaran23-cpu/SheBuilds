@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>SheBuilds</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'Main/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'Main/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'Main/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Main/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'Main/assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Nova
+  * Template URL: https://bootstrapmade.com/nova-bootstrap-business-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top"
+    style="background-color:  rgba(0, 0, 0, 0.519);">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'Main/assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">SheBuilds</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+
+          <li><a href="{% url 'User:HomePage' %}">Home</a></li>
+          <li><a href="{% url 'User:MyProfile' %}">My Profile</a></li>
+
+          <!-- Kudumbasree Dropdown -->
+          <li class="dropdown">
+            <a href="#"><span>Personal</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+
+              <li><a href="{% url 'User:MyKudumbasree' %}">My Kudumbasree</a></li>
+              <li><a href="{% url 'User:MySavings' %}">My Savings</a></li>
+              <li><a href="{% url 'User:MyCart' %}">My Cart</a></li>
+              <li><a href="{% url 'User:MyBooking' %}">My Booking</a></li>
+
+            </ul>
+          </li>
+
+          <!-- Complaints -->
+          <li class="dropdown">
+            <a href="#"><span>Support</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="{% url 'User:Complaint' %}">Complaint</a></li>
+              <li><a href="{% url 'User:Feedback' %}">Feedback</a></li>
+            </ul>
+          </li>
+
+          <!-- Finance -->
+          <li class="dropdown">
+            <a href="#"><span>Views</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="{% url 'User:viewfine' %}">View Fine</a></li>
+              <li><a href="{% url 'User:ViewNotification' %}">View Notification</a></li>
+              <li><a href="{% url 'User:kudumbam' %}">View Kudumbasree</a></li>
+              <li><a href="{% url 'User:ViewProduct' %}">View Products</a></li>
+            </ul>
+          </li>
+
+          <!-- Notification -->
+          <li><a href="{% url 'User:logout' %}">Logout</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+    <div style="padding-top: 130px;">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'Main/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'Main/assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'Main/assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'Main/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'Main/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'Main/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'Main/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+    <!-- Main JS File -->
+    <script src="{% static 'Main/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

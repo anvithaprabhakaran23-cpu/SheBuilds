@@ -1,0 +1,120 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>👥 Available Kudumbasree Groups</h3>
+
+    {% if kudumbam %}
+    <div class="card profile-card">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Local Place</th>
+                    <th>Ward</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in kudumbam %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.kudumbasree_name }}</td>
+                    <td>{{ i.kudumbasree_email }}</td>
+                    <td>{{ i.kudumbasree_contact }}</td>
+                    <td>{{ i.localplace.place.district.district_name }}</td>
+                    <td>{{ i.authority.authority_name }}</td>
+                    <td>
+                        <a href="{% url 'User:requesttojoin' i.id %}" class="btn btn-primary">Request to Join</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No Kudumbasree groups found.</p>
+    {% endif %}
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: #042c5c;
+    margin-bottom: 20px;
+}
+
+.card.profile-card {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.styled-table th {
+    background-color: #f1f5f9;
+    color: #042c5c;
+    font-weight: 600;
+}
+
+.btn {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #42a5f5;
+}
+
+.btn-primary:hover {
+    background-color: #1e88e5;
+}
+
+@media screen and (max-width: 600px) {
+    .styled-table th, .styled-table td {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+    .btn {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+}
+</style>
+
+{% if msg %}
+<script>
+alert("{{ msg }}");
+window.location = "{% url 'User:kudumbam' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

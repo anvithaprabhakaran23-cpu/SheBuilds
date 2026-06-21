@@ -1,0 +1,122 @@
+{% extends 'Kudumbasree/Header.html' %}
+{% block content %}
+
+<div class="page-container">
+
+    <h3>👥 Member Attendance</h3>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <table class="attendance-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Member</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in user %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.user.user_name }}</td>
+                    <td>
+                        {% if i.status == 1 %}
+                            Present |  <span class="paid">Paid</span>
+                            <!-- {% if i.paymentstatus == 0 %}
+                                <a href="{% url 'Kudumbasree:addsavings' i.id i.amount mid %}" class="btn-pay">Pay ₹{{ i.amount }}</a>
+                            {% else %}
+                                <span class="paid">Paid</span>
+                            {% endif %} -->
+                        {% elif i.status == 2 %}
+                            <span class="absent">Absent</span>
+                        {% else %}
+                            <a href="{% url 'Kudumbasree:Absent' i.id mid %}" class="btn-absent">Mark Absent</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </form>
+</div>
+
+<style>
+.page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+    color: #042c5c;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.attendance-table th, .attendance-table td {
+    border: 1px solid #cbd5e1;
+    padding: 10px;
+}
+
+.attendance-table th {
+    background-color: #f0f4f8;
+    color: #042c5c;
+}
+
+.attendance-table tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.btn-pay, .btn-absent {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-pay {
+    background-color: #42a5f5;
+}
+
+.btn-pay:hover {
+    background-color: #1e88e5;
+}
+
+.btn-absent {
+    background-color: #ef5350;
+}
+
+.btn-absent:hover {
+    background-color: #d32f2f;
+}
+
+.paid {
+    color: green;
+    font-weight: 500;
+}
+
+.absent {
+    color: red;
+    font-weight: 500;
+}
+</style>
+
+{% if msg %}
+<script>
+alert("{{ msg }}");
+window.location="{% url 'Kudumbasree:Attendance' %}";
+</script>
+{% endif %}
+
+{% endblock %}
